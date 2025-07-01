@@ -1,0 +1,130 @@
+{
+  "books": [
+    {
+      "created_at": "2025-06-27T10:00:00Z",
+      "title": "A Conspiração do Pudim Cósmico",
+      "description": "Uma aventura intergaláctica onde um grupo de nerds descobre que a Via Láctea é, na verdade, um pudim gigante sendo devorado por uma raça alienígena faminta.",
+      "author": "Ziggy Stardust",
+      "pubyear": 2024,
+      "isbn": "978-0-12-345678-9",
+      "status": "ON",
+      "cover": "https://picsum.photos/204/304",
+      "id": "1"
+    },
+    {
+      "created_at": "2025-05-15T14:30:00Z",
+      "title": "Manual de Sobrevivência à Segunda-feira",
+      "description": "Dicas infalíveis para superar o dia mais temido da semana, com conselhos que vão desde a arte de enrolar no trabalho até como fingir estar ocupado em reuniões.",
+      "author": "Dr. Soneca Profunda",
+      "pubyear": 2023,
+      "isbn": "978-1-23-456789-0",
+      "status": "OFF",
+      "cover": "https://picsum.photos/203/303",
+      "id": "2"
+    },
+    {
+      "created_at": "2025-03-20T09:15:00Z",
+      "title": "Meu Gato Tuitou Minha Autobiografia",
+      "description": "A inacreditável história de como um gato doméstico acidentalmente publicou as memórias secretas de seu dono, revelando segredos embaraçosos para o mundo.",
+      "author": "Miauzer Gato",
+      "pubyear": 2025,
+      "isbn": "978-2-34-567890-1",
+      "status": "ON",
+      "cover": "https://picsum.photos/202/302",
+      "id": "3"
+    },
+    {
+      "created_at": "2024-12-01T11:00:00Z",
+      "title": "Receitas para Engordar o Vizinhelo",
+      "description": "Um livro de receitas deliciosas e extremamente calóricas, com o objetivo secreto de sabotar a dieta do seu vizinho mais chato.",
+      "author": "Vovó Gulosa",
+      "pubyear": 2022,
+      "isbn": "978-3-45-678901-2",
+      "status": "OFF",
+      "cover": "https://picsum.photos/201/301",
+      "id": "4"
+    },
+    {
+      "created_at": "2024-10-05T16:45:00Z",
+      "title": "O Guia Definitivo do Não-Saber",
+      "description": "Um tratado filosófico que explora a beleza da ignorância e os benefícios de não ter todas as respostas, escrito por um mestre zen do 'e daí?'.",
+      "author": "Sócrates Reencarnado",
+      "pubyear": 2021,
+      "isbn": "978-4-56-789012-3",
+      "status": "ON",
+      "cover": "https://picsum.photos/200/300",
+      "id": "5"
+    },
+    {
+      "created_at": "2024-08-22T08:00:00Z",
+      "title": "Como Dominar o Mundo com Meias Desparelhadas",
+      "description": "Uma tese revolucionária que prova que o controle global começa com a organização das gavetas de meias e a exploração do caos dos pares perdidos.",
+      "author": "Dra. Meia-Verdade",
+      "pubyear": 2024,
+      "isbn": "978-5-67-890123-4",
+      "status": "ON",
+      "cover": "https://picsum.photos/199/299",
+      "id": "6"
+    },
+    {
+      "created_at": "2024-07-10T19:00:00Z",
+      "title": "O Mistério do Café Sumindo",
+      "description": "Um suspense investigativo sobre o desaparecimento misterioso de café da máquina do escritório, com reviravoltas chocantes e um final surpreendente.",
+      "author": "Sherlock Grãos",
+      "pubyear": 2023,
+      "isbn": "978-6-78-901234-5",
+      "status": "OFF",
+      "cover": "https://picsum.photos/198/298",
+      "id": "7"
+    },
+    {
+      "created_at": "2024-06-27T12:00:00Z",
+      "title": "A Dieta do Astronauta Preguiçoso",
+      "description": "Descubra como sobreviver no espaço comendo apenas pacotes de comida desidratada e evite fazer qualquer tipo de exercício. Para os verdadeiros amantes da inércia.",
+      "author": "Buzz Lightdiet",
+      "pubyear": 2025,
+      "isbn": "978-7-89-012345-6",
+      "status": "ON",
+      "cover": "https://picsum.photos/197/297",
+      "id": "8"
+    },
+    {
+      "created_at": "2024-05-01T10:30:00Z",
+      "title": "A Verdade por Trás dos Patos de Borracha",
+      "description": "Uma investigação profunda sobre o enigmático mundo dos patos de borracha e seu papel secreto em conspirações globais. O que eles sabem que nós não sabemos?",
+      "author": "Quackson",
+      "pubyear": 2022,
+      "isbn": "978-8-90-123456-7",
+      "status": "OFF",
+      "cover": "https://picsum.photos/205/305",
+      "id": "9"
+    },
+    {
+      "created_at": "2024-04-18T15:00:00Z",
+      "title": "Como Treinar seu Dragão... de Computador",
+      "description": "Um guia passo a passo para criar e domar um dragão virtual, com dicas sobre programação, inteligência artificial e como evitar que ele derreta seu HD.",
+      "author": "Draco Bytes",
+      "pubyear": 2024,
+      "isbn": "978-9-01-234567-8",
+      "status": "ON",
+      "cover": "https://picsum.photos/196/296",
+      "id": "10"
+    }
+  ],
+  "contact": [
+    {
+      "id": "122b",
+      "name": "Joca da Silva",
+      "email": "joca@silva.com",
+      "subject": "Teste de contato",
+      "message": "Mensagem de contato"
+    },
+    {
+      "id": "54ed",
+      "name": "Edicleuzo",
+      "email": "edi@email.com",
+      "subject": "Teste",
+      "message": "Mensagem"
+    }
+  ]
+}

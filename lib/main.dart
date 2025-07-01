@@ -98,7 +98,7 @@ class BooksVanilla extends StatelessWidget {
 
 class Home extends StatelessWidget {
   // The API URL and property to fetch.
-  final String apiUrl = "http://192.168.1.2:8080/api/book/list";
+  final String apiUrl = "http://10.144.31.70:8080/api/book/list";
   final List<String> properties = ['title', 'price', 'genre','coverImageUrl','author'];
 
   Home({super.key});
@@ -118,7 +118,7 @@ class Home extends StatelessWidget {
           width: 400,
           height: 400,
           child: Image.network("https://i.imgur.com/h7f6grg.png"),
-        ), toolbarHeight: 200,
+        ), toolbarHeight: 135,
         foregroundColor: Colors.white,
         actions: <Widget>[
           IconButton(
@@ -158,7 +158,7 @@ class Home extends StatelessWidget {
            Column(
             children:<Widget>[
               // Featured Book Section
-              Padding(
+              /*Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
                   width: double.infinity,
@@ -185,7 +185,7 @@ class Home extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+              ),*/
               // Books Grid Section wrapped in a FutureBuilder.
               FutureBuilder<List<Map<String, String>>>(
                 future: _booksFuture(),

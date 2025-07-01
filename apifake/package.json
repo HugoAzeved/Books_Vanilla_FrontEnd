@@ -1,0 +1,14 @@
+{
+  "name": "apifake",
+  "version": "0.0.1",
+  "description": "API Fake para testes rápidos com Flutter.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "André Luferat",
+  "license": "MIT",
+  "dependencies": {
+    "json-server": "^1.0.0-beta.3"
+  }
+}
