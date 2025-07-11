@@ -1,8 +1,9 @@
 
-import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:dio/dio.dart';
 
 class RegisterBook extends StatefulWidget {
   const RegisterBook({super.key});
@@ -15,7 +16,6 @@ class _RegisterBookState extends State<RegisterBook> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _titleController = TextEditingController();
-  /*final TextEditingController _subtitleController = TextEditingController();*/
   final TextEditingController _synopsisController = TextEditingController();
   final TextEditingController _isbnController = TextEditingController();
   final TextEditingController _authorController = TextEditingController();
@@ -24,18 +24,28 @@ class _RegisterBookState extends State<RegisterBook> {
   final TextEditingController _stockBook = TextEditingController();
   final TextEditingController _publisher = TextEditingController();
 
-/*  List<String> _selectedCategories = [];
-  final List<String> _allCategories = ["Romance", "Misterio", "Drama", "Terror", "Ação", "Historia"];*/
+
+  File? _selectedImage;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
+  }
 
   Future<void> _submitForm() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final uri = Uri.parse('http://10.144.31.70:8080/api/book/register');
-    final body = json.encode({
+    final dio = Dio();
+
+    final formData = FormData.fromMap({
       "title": _titleController.text,
-     /* "subtitle": _subtitleController.text,*/
       "synopsis": _synopsisController.text,
-    /*  "categories": _selectedCategories,*/
       "publicationYear": int.parse(_releaseDateController.text),
       "isbn": _isbnController.text,
       "author": _authorController.text,
@@ -49,24 +59,27 @@ class _RegisterBookState extends State<RegisterBook> {
       "language": "Português",
       "ebook": false,
       "status": "ON",
-      /*"genre": _selectedCategories,*/
+      if (_selectedImage != null)
+        "image": await MultipartFile.fromFile(_selectedImage!.path, filename: "livro.jpg"),
     });
 
     try {
-      final response = await http.post(
-        uri,
-        headers: {'Content-Type': 'application/json'},
-        body: body,
+      final response = await dio.post(
+        'http://10.144.31.70:8080/api/book/register',
+        data: formData,
+        options: Options(
+          contentType: 'multipart/form-data',
+        ),
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Livro cadastrado com sucesso!')),
         );
         Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro: ${response.body}')),
+          SnackBar(content: Text('Erro: ${response.data}')),
         );
       }
     } catch (e) {
@@ -141,6 +154,21 @@ class _RegisterBookState extends State<RegisterBook> {
                 }).toList(),
               ),*/
 
+              Center(
+                child: Column(
+                  children: [
+                    if (_selectedImage != null)
+                      Image.file(_selectedImage!, height: 150),
+                    ElevatedButton.icon(
+                      onPressed: _pickImage,
+                      icon: const Icon(Icons.image),
+                      label: const Text('Adicionar Foto'),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
+                    ),
+                  ],
+                ),
+              ),
+
               const SizedBox(height: 30),
               Center(
                 child: ElevatedButton(
@@ -181,3 +209,5 @@ class _RegisterBookState extends State<RegisterBook> {
     );
   }
 }
+
+
