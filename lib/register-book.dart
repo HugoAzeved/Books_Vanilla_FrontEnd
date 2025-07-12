@@ -1,9 +1,10 @@
-
-import 'dart:io';
+import 'dart:io' if (dart.library.html) 'dart:html'; // Importa File para mobile e html para web
+import 'package:flutter/foundation.dart' show kIsWeb, Uint8List; // Importa kIsWeb
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart'; // Necessário para MediaType
 
 class RegisterBook extends StatefulWidget {
   const RegisterBook({super.key});
@@ -24,17 +25,30 @@ class _RegisterBookState extends State<RegisterBook> {
   final TextEditingController _stockBook = TextEditingController();
   final TextEditingController _publisher = TextEditingController();
 
-
-  File? _selectedImage;
+  // Alterar o tipo da variável para ser compatível com web e mobile
+  // Para web, armazenamos os bytes, para mobile, o File
+  Uint8List? _selectedImageBytes;
+  File? _selectedImageFile; // Manter para uso com File.fromFile em mobile
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      setState(() {
-        _selectedImage = File(pickedFile.path);
-      });
+      if (kIsWeb) {
+        // Para web, leia os bytes do XFile
+        final bytes = await pickedFile.readAsBytes();
+        setState(() {
+          _selectedImageBytes = bytes;
+          _selectedImageFile = null; // Garante que o File é nulo na web
+        });
+      } else {
+        // Para mobile, crie um File a partir do path
+        setState(() {
+          _selectedImageFile = File(pickedFile.path);
+          _selectedImageBytes = null; // Garante que os bytes são nulos em mobile
+        });
+      }
     }
   }
 
@@ -59,8 +73,14 @@ class _RegisterBookState extends State<RegisterBook> {
       "language": "Português",
       "ebook": false,
       "status": "ON",
-      if (_selectedImage != null)
-        "image": await MultipartFile.fromFile(_selectedImage!.path, filename: "livro.jpg"),
+      if (!kIsWeb && _selectedImageFile != null) // Para mobile, use File.fromFile
+        "image": await MultipartFile.fromFile(_selectedImageFile!.path, filename: "livro.jpg"),
+      if (kIsWeb && _selectedImageBytes != null) // Para web, use MultipartFile.fromBytes
+        "image": MultipartFile.fromBytes(
+          _selectedImageBytes!,
+          filename: "livro.jpg", // Nome do arquivo é importante
+          contentType: MediaType('image', 'jpeg'), // Tipo de conteúdo
+        ),
     });
 
     try {
@@ -68,7 +88,7 @@ class _RegisterBookState extends State<RegisterBook> {
         'http://10.144.31.70:8080/api/book/register',
         data: formData,
         options: Options(
-          contentType: 'multipart/form-data',
+          contentType: Headers.multipartFormDataContentType, // Use Headers.multipartFormDataContentType
         ),
       );
 
@@ -106,7 +126,7 @@ class _RegisterBookState extends State<RegisterBook> {
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         elevation: 0,
-        leading: BackButton(color: Colors.white),
+        leading: const BackButton(color: Colors.white),
         title: const Text('Cadastre seu livro', style: TextStyle(color: Colors.white)),
         centerTitle: true,
       ),
@@ -131,34 +151,13 @@ class _RegisterBookState extends State<RegisterBook> {
               _buildTextField(_priceController, 'Preço'),
               _buildTextField(_stockBook, 'Quantidade no estoque'),
 
-/*              const SizedBox(height: 12),
-              const Text('Selecione o genero', style: TextStyle(color: Colors.white)),
-              Column(
-                children: _allCategories.map((category) {
-                  return CheckboxListTile(
-                    title: Text(category),
-                    value: _selectedCategories.contains(category),
-                    onChanged: (bool? selected) {
-                      setState(() {
-                        if (selected == true) {
-                          _selectedCategories.add(category);
-                        } else {
-                          _selectedCategories.remove(category);
-                        }
-                      });
-                    },
-                    activeColor: Colors.white,
-                    checkColor: Colors.blue,
-                    controlAffinity: ListTileControlAffinity.leading,
-                  );
-                }).toList(),
-              ),*/
-
               Center(
                 child: Column(
                   children: [
-                    if (_selectedImage != null)
-                      Image.file(_selectedImage!, height: 150),
+                    if (kIsWeb && _selectedImageBytes != null) // Exibe imagem por bytes na web
+                      Image.memory(_selectedImageBytes!, height: 150),
+                    if (!kIsWeb && _selectedImageFile != null) // Exibe imagem por File em mobile
+                      Image.file(_selectedImageFile!, height: 150),
                     ElevatedButton.icon(
                       onPressed: _pickImage,
                       icon: const Icon(Icons.image),
@@ -209,5 +208,3 @@ class _RegisterBookState extends State<RegisterBook> {
     );
   }
 }
-
-

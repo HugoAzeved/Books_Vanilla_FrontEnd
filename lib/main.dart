@@ -309,7 +309,7 @@ class BookCard extends StatelessWidget {
 
           // Informações
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(5.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -323,7 +323,7 @@ class BookCard extends StatelessWidget {
                     fontSize: 14,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
 
                 // Autor
                 Text(
@@ -332,16 +332,16 @@ class BookCard extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
 
                 // Sinopse resumida
-                Text(
+               /* Text(
                   synopsis,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontSize: 12),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 4),*/
 
                 // Preço
                 Text(
