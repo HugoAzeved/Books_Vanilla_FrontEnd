@@ -272,11 +272,6 @@ class BookCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Autor(a): $author',
-                  style: const TextStyle(fontSize: 12, color: Colors.black54),
-                ),
-                const SizedBox(height: 6),
-                Text(
                   synopsis,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
